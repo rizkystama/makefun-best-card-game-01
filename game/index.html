@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lantern Lanes — a three-lane card battler</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <div id="title-screen">
+    <div class="title-lantern"><span class="lantern-glow"></span><span class="lantern-body"><span class="lantern-cap"></span><span class="lantern-light"></span><span class="lantern-base"></span></span></div>
+    <h1>LANTERN LANES</h1>
+    <p class="tagline">A three-lane card battler. Light your lanterns, outplay the Keeper.</p>
+    <button id="play-button">Play the game</button>
+    <div class="howto">
+      <h2>How to play</h2>
+      <ol>
+        <li><strong>Play creatures into lanes.</strong> Mana grows by 1 every turn, to 10.</li>
+        <li><strong>Creatures attack down their lane.</strong> Clear a lane to strike the enemy hero.</li>
+        <li><strong>Kindred:</strong> playing a creature gives your other creatures of its faction +1 attack.</li>
+        <li><strong>Win</strong> by reducing the rival hero from 20 life to 0.</li>
+      </ol>
+      <div class="legend">
+        <span class="legend-item"><span class="mark mark-ember"><span class="shape shape-ember"></span></span> Ember</span>
+        <span class="legend-item"><span class="mark mark-tide"><span class="shape shape-tide">≈</span></span> Tide</span>
+        <span class="legend-item"><span class="mark mark-moss"><span class="shape shape-moss"></span></span> Moss</span>
+      </div>
+      <p class="controls-note">Mouse or keyboard — Enter ends your turn, Esc cancels a selection.</p>
+    </div>
+  </div>
+
+  <div id="table" hidden>
+    <div id="ai-side">
+      <div id="ai-hero" class="hero-panel">
+        <div class="hero-name">The Ember Keeper</div>
+        <div class="hero-life"><span class="heart">♥</span> <span class="life-num">20</span>
+          <div class="life-bar"><div class="life-bar-fill"></div></div>
+        </div>
+        <div class="hero-mana"><span class="mana-gem">◆</span> <span class="mana-num">0/0</span><span class="mana-pips"></span></div>
+        <div class="deck-count">Deck 24</div>
+      </div>
+      <div id="ai-hand" class="hand"></div>
+    </div>
+
+    <div id="lanes"></div>
+
+    <div id="player-side">
+      <div id="player-hand" class="hand"></div>
+      <div id="player-bar">
+        <div id="player-hero" class="hero-panel">
+          <div class="hero-name">Lantern Bearer — You</div>
+          <div class="hero-life"><span class="heart">♥</span> <span class="life-num">20</span>
+            <div class="life-bar"><div class="life-bar-fill"></div></div>
+          </div>
+          <div class="hero-mana"><span class="mana-gem">◆</span> <span class="mana-num">0/0</span><span class="mana-pips"></span></div>
+          <div class="deck-count">Deck 24</div>
+        </div>
+        <div id="controls">
+          <div id="turn-label"></div>
+          <div id="hint"></div>
+          <button id="end-turn">End Turn</button>
+        </div>
+        <div id="log"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="end-overlay" hidden>
+    <div class="end-card">
+      <div id="end-title"></div>
+      <div id="end-subtitle"></div>
+      <button id="play-again">Play again</button>
+    </div>
+  </div>
+
+</div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
