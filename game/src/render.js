@@ -36,12 +36,19 @@ function cardFace(card, atk, hp) {
   const f = FACTIONS[card.faction];
   const buffed = atk > card.atk;
   const hurt = hp < card.hp;
+  // The art is the card's own glyph (unique per card); the faction mark
+  // in the corner is the suit. A Kindred-buffed creature wears its badge
+  // in plain sight, so the combo reads at thumbnail size.
+  const kindred = buffed
+    ? `<div class="kindred-badge">KINDRED +${atk - card.atk}</div>`
+    : '';
   return `
     <div class="card-cost">${card.cost}</div>
     <div class="card-mark">${factionMark(card.faction)}</div>
     <div class="card-art" style="background:linear-gradient(135deg, ${f.color}, ${f.dark})">
-      <span class="art-glyph">${f.glyph}</span>
+      <span class="art-glyph">${card.art}</span>
     </div>
+    ${kindred}
     <div class="card-name">${card.name}</div>
     <div class="card-text">${card.text || '&nbsp;'}</div>
     <div class="card-stats">
@@ -71,6 +78,7 @@ function creatureElement(creature, game, validTargets) {
   const prevHp = lastHp.get(creature.uid);
   if (prevHp !== undefined && creature.hp < prevHp) node.classList.add('hit');
   lastHp.set(creature.uid, creature.hp);
+  if (creature.atk > creature.card.atk) node.classList.add('kindred');
   if (creature.owner === 'player' && creature.ready && game.active === 'player' && !game.aiBusy) {
     node.classList.add('ready');
   }

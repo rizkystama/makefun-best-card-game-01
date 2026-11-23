@@ -31,6 +31,9 @@ body {
   padding: 16px;
 }
 
+.title-row { display: flex; align-items: center; justify-content: center; gap: 44px; }
+.title-main { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+
 .title-lantern { position: relative; width: 72px; height: 96px; }
 .lantern-glow {
   position: absolute; inset: -30px;
@@ -73,6 +76,19 @@ body {
 }
 #play-button:hover, #play-again:hover { filter: brightness(1.08); }
 #play-button:active, #play-again:active { transform: translateY(2px); box-shadow: 0 2px 0 #7a3c10; }
+
+/* The cover card: one big card on the title screen, so the cover shows
+   the game's own art at full size instead of only the lantern. */
+.cover-card { transform: rotate(4deg); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 32px rgba(255, 176, 66, 0.35); }
+.card.cover { width: 168px; height: 236px; border-radius: 12px; }
+.card.cover .card-cost { width: 36px; height: 36px; font-size: 20px; line-height: 36px; top: 6px; left: 6px; }
+.card.cover .card-mark { top: 8px; right: 8px; transform: scale(1.3); }
+.card.cover .card-art { height: 88px; margin: 38px 10px 0; }
+.card.cover .art-glyph { font-size: 52px; }
+.card.cover .card-name { font-size: 18px; margin-top: 8px; }
+.card.cover .card-text { font-size: 13px; min-height: 32px; }
+.card.cover .stat { width: 36px; height: 36px; font-size: 20px; line-height: 36px; }
+.card.cover .card-stats { bottom: 8px; padding: 0 10px; }
 
 .howto {
   background: rgba(0, 0, 0, 0.32); border: 1px solid rgba(255, 217, 138, 0.35);
@@ -196,7 +212,8 @@ body {
 }
 .art-glyph { font-size: 34px; color: rgba(255, 255, 255, 0.92); text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); }
 .card-name { font-size: 13px; font-weight: 800; text-align: center; margin-top: 5px; line-height: 1.15; padding: 0 4px; }
-.card-text { font-size: 10.5px; text-align: center; line-height: 1.25; padding: 2px 6px; color: #4a3a1c; min-height: 26px; }
+/* Rule text can never clip into the stats: three lines at most, then cut. */
+.card-text { font-size: 10px; text-align: center; line-height: 1.2; padding: 2px 6px; color: #4a3a1c; min-height: 24px; max-height: 36px; overflow: hidden; }
 .card-stats { position: absolute; bottom: 5px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 7px; }
 .stat {
   width: 26px; height: 26px; border-radius: 50%;
@@ -207,6 +224,15 @@ body {
 .stat.hp { background: radial-gradient(circle at 35% 30%, #ff8a7a, #b01e1e); }
 .stat.atk.buffed { background: radial-gradient(circle at 35% 30%, #ffe066, #b8860b); box-shadow: 0 0 10px rgba(255, 214, 64, 0.95); }
 .stat.hp.hurt { filter: brightness(0.85); }
+
+/* The Kindred badge: a gold ribbon across the art's foot, naming the buff. */
+.kindred-badge {
+  position: absolute; top: 78px; left: 50%; transform: translateX(-50%); z-index: 3;
+  background: linear-gradient(180deg, #ffd94a, #b8860b); color: #2a1602;
+  font-size: 9px; font-weight: 900; letter-spacing: 1px; white-space: nowrap;
+  padding: 2px 7px; border-radius: 9px; border: 1px solid #fff3b0;
+  box-shadow: 0 0 10px rgba(255, 214, 64, 0.95);
+}
 
 .hand-card { cursor: pointer; }
 .hand-card.playable { box-shadow: 0 0 0 2px rgba(255, 217, 138, 0.9), 0 6px 14px rgba(0, 0, 0, 0.55); }
@@ -221,6 +247,8 @@ body {
 .card.on-board .card-text { display: none; }
 .card.on-board .stat { width: 22px; height: 22px; font-size: 13px; line-height: 22px; }
 .card.on-board .mark { transform: scale(0.85); }
+.card.on-board .kindred-badge { top: 46px; font-size: 8px; padding: 1px 5px; letter-spacing: 0.5px; }
+.card.on-board.kindred { box-shadow: 0 0 0 2px rgba(255, 214, 64, 0.9), 0 0 18px rgba(255, 214, 64, 0.55); }
 .card.on-board.summoned { animation: summon-pop 0.4s ease-out; }
 .card.on-board.hit { animation: hit-shake 0.35s ease-in-out; }
 .card.on-board.ready { box-shadow: 0 0 0 2px rgba(120, 220, 140, 0.9), 0 0 16px rgba(120, 220, 140, 0.5); cursor: pointer; }
@@ -257,6 +285,7 @@ body {
   background: rgba(4, 10, 8, 0.72);
 }
 .end-card {
+  position: relative; z-index: 2;
   text-align: center; padding: 44px 72px; border-radius: 16px;
   background: linear-gradient(180deg, #1d3a2d, #0e2018);
   border: 2px solid rgba(255, 217, 138, 0.6);
@@ -267,6 +296,21 @@ body {
 #end-title { font-family: Georgia, "Times New Roman", serif; font-size: 62px; letter-spacing: 8px; color: #ffd98a; text-shadow: 0 0 26px rgba(255, 176, 66, 0.7); }
 #end-overlay.loss #end-title { color: #a8c4de; text-shadow: 0 0 26px rgba(120, 160, 220, 0.6); }
 #end-subtitle { font-size: 16px; color: #d8e8dc; margin: 8px 0 20px; }
+
+/* The flourish: a slow-turning sunburst behind a win, a cold still
+   vignette behind a loss — the ending lands instead of just appearing. */
+.end-rays {
+  position: absolute; left: 50%; top: 50%; z-index: 1;
+  width: 760px; height: 760px; transform: translate(-50%, -50%);
+  border-radius: 50%; pointer-events: none;
+  background: repeating-conic-gradient(from 0deg, rgba(255, 200, 90, 0.16) 0deg 9deg, transparent 9deg 18deg);
+  animation: rays-turn 26s linear infinite;
+}
+#end-overlay.loss .end-rays {
+  background: radial-gradient(circle, rgba(90, 140, 200, 0.14), transparent 65%);
+  animation: none;
+}
+#end-overlay.draw .end-rays { display: none; }
 
 /* ---------- motion ---------- */
 
@@ -298,4 +342,8 @@ body {
   0% { transform: scale(0.7); opacity: 0; }
   60% { transform: scale(1.05); opacity: 1; }
   100% { transform: scale(1); opacity: 1; }
+}
+@keyframes rays-turn {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }

@@ -2,10 +2,11 @@
 //
 // ?shot=title renders the title screen. ?shot=play renders a mid-game
 // table: turn 5, both heroes hurt, hands full, creatures across all three
-// lanes — one of them visibly Kindred-buffed. ?shot=win and ?shot=loss
-// render the same table with the game decided. Every preset is built
-// through the game's own engine and painted by its own renderer, so each
-// screenshot is a real render of the game itself.
+// lanes — one of them visibly Kindred-buffed, badge and log line both
+// naming the combo. ?shot=win and ?shot=loss render the same table with
+// the game decided. Every preset is built through the game's own engine
+// and painted by its own renderer, so each screenshot is a real render
+// of the game itself.
 
 import { Creature } from './engine.js';
 
@@ -40,7 +41,8 @@ export function applyShot(game, shot) {
   game.decks.ai = Array(16).fill('tide-sprite');
 
   // Kindred on show: the Cinder Fox stands beside an Ember Imp, so its
-  // attack reads 4 instead of its printed 3.
+  // attack reads 4 instead of its printed 3 — the badge on the card and
+  // the log line both say so.
   place(game, 'cinder-fox', 'player', 0, true, 1);
   place(game, 'ember-imp', 'player', 0, false);
   place(game, 'coral-guard', 'player', 1, true);
@@ -50,6 +52,7 @@ export function applyShot(game, shot) {
   place(game, 'flame-herald', 'ai', 2, true);
   game.say('The rival plays Flame Herald in lane 3.');
   game.say('You play Coral Guard in lane 2.');
+  game.say('Kindred: Cinder Fox gains +1 attack (now 4).');
 
   if (shot === 'win') {
     game.heroes.ai.life = 0;

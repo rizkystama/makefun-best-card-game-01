@@ -10,10 +10,27 @@
 <div id="app">
 
   <div id="title-screen">
-    <div class="title-lantern"><span class="lantern-glow"></span><span class="lantern-body"><span class="lantern-cap"></span><span class="lantern-light"></span><span class="lantern-base"></span></span></div>
-    <h1>LANTERN LANES</h1>
-    <p class="tagline">A three-lane card battler. Light your lanterns, outplay the Keeper.</p>
-    <button id="play-button">Play the game</button>
+    <div class="title-row">
+      <div class="title-main">
+        <div class="title-lantern"><span class="lantern-glow"></span><span class="lantern-body"><span class="lantern-cap"></span><span class="lantern-light"></span><span class="lantern-base"></span></span></div>
+        <h1>LANTERN LANES</h1>
+        <p class="tagline">A three-lane card battler. Light your lanterns, outplay the Keeper.</p>
+        <button id="play-button">Play the game</button>
+      </div>
+      <div class="card cover cover-card faction-ember" aria-hidden="true">
+        <div class="card-cost">5</div>
+        <div class="card-mark"><span class="mark mark-ember"><span class="shape shape-ember"></span></span></div>
+        <div class="card-art" style="background:linear-gradient(135deg, #e2483d, #8f1d16)">
+          <span class="art-glyph">★</span>
+        </div>
+        <div class="card-name">Pyre Drake</div>
+        <div class="card-text">&nbsp;</div>
+        <div class="card-stats">
+          <span class="stat atk">6</span>
+          <span class="stat hp">5</span>
+        </div>
+      </div>
+    </div>
     <div class="howto">
       <h2>How to play</h2>
       <ol>
@@ -68,6 +85,7 @@
   </div>
 
   <div id="end-overlay" hidden>
+    <div class="end-rays"></div>
     <div class="end-card">
       <div id="end-title"></div>
       <div id="end-subtitle"></div>
